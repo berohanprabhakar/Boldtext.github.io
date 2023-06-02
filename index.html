@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bold Keywords</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+pre,
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+pre {
+  height: 200px;
+  white-space: pre-wrap;
+  overflow: auto;
+}
+
+button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#output {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+
+  </style>
+  <script>
+    function boldKeywords() {
+  var paragraph = document.getElementById("paragraph").innerText;
+  var keywords = document.getElementById("keywords").value.split(",");
+
+  var formattedParagraph = paragraph.replace(/\n/g, "<br>");
+
+  for (var i = 0; i < keywords.length; i++) {
+    var keyword = keywords[i].trim();
+    if (keyword !== "") {
+      var escapedKeyword = escapeRegExp(keyword);
+      var regex = new RegExp("\\b" + escapedKeyword + "(?![A-Za-z])", "gi");
+      formattedParagraph = formattedParagraph.replace(regex, "<strong>$&</strong>");
+    }
+  }
+
+  document.getElementById("output").innerHTML = formattedParagraph;
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Bold Keywords</h1>
+
+    <label for="paragraph">Paragraph:</label>
+    <pre id="paragraph" contenteditable="true" placeholder="Enter your paragraph"></pre>
+
+    <label for="keywords">Keywords (comma-separated):</label>
+    <input type="text" id="keywords" placeholder="Enter your keywords">
+
+    <button onclick="boldKeywords()">Bold Keywords</button>
+
+    <h2>Output:</h2>
+    <div id="output"></div>
+  </div>
+</body>
+</html>
